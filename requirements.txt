@@ -1,6 +1,0 @@
-# Streamlit Cloud - Add-On Packages Only
-plotly==5.17.0
-reportlab==3.6.12
-PyPDF2==3.0.1
-openpyxl==3.1.2
-python-dateult==2.8.2
