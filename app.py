@@ -70,7 +70,7 @@ def get_career_pathway():
     return pd.DataFrame([
         ["Google Professional Certification", "2025-2026", "Foundation", "Google", "Core PM concepts, Agile, Scrum", "In Progress"],
         ["CAPM (PMI)", "2026 (Approved/Pending Exam)", "Professional", "Project Management Institute", "PMBOK Guide, PM framework", "Approved"],
-        ["OTHM Level 7 Diploma", "2027-2028", "Advanced", "OTHM Qualifications", "Strategic PM, Leadership, Risk", "Planned"],
+        ["OTHM Level 7 Diploma", "2026-2028", "Advanced", "OTHM Qualifications", "Strategic PM, Leadership, Risk", "Planned"],
         ["MSc Project Management", "2028-2029", "Master's", "University Target", "Research, Advanced PM Theory", "Future Goal"]
     ], columns=["Certification/Qualification", "Timeline", "Level", "Provider", "Focus Areas", "Status"])
 
@@ -99,7 +99,7 @@ def create_gantt_chart():
     tasks = [
         dict(Task="Google PM Certification", Start='2025-01-01', Finish='2026-06-30', Status='In Progress'),
         dict(Task="CAPM Exam Preparation", Start='2026-01-01', Finish='2026-12-31', Status='Approved'),
-        dict(Task="OTHM Level 7", Start='2027-01-01', Finish='2028-06-30', Status='Planned'),
+        dict(Task="OTHM Level 7", Start='2026-12-01', Finish='2028-12-30', Status='Planned'),
         dict(Task="MSc Project Management", Start='2028-09-01', Finish='2029-08-31', Status='Future'),
         dict(Task="Industry Networking", Start='2025-01-01', Finish='2029-12-31', Status='Ongoing'),
         dict(Task="Portfolio Development", Start='2024-11-01', Finish='2029-12-31', Status='Ongoing')
