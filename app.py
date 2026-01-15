@@ -126,7 +126,7 @@ def get_pm_credentials_chart_data():
 
 @st.cache_data
 def create_gantt_chart():
-    """Create Gantt chart for career pathway - FIXED VERSION"""
+    """Create Gantt chart for career pathway"""
     tasks = [
         dict(Task="Google PM Certification", Start='2025-01-01', Finish='2026-06-30', Status='In Progress'),
         dict(Task="CAPM Exam Preparation", Start='2026-01-01', Finish='2026-12-31', Status='Approved'),
@@ -138,7 +138,7 @@ def create_gantt_chart():
     
     df = pd.DataFrame(tasks)
     
-    # FIX: Use plotly express timeline
+    # Create figure using plotly express timeline
     fig = px.timeline(
         df, 
         x_start="Start", 
@@ -151,11 +151,11 @@ def create_gantt_chart():
             'Planned': '#8b5cf6',
             'Future': '#f59e0b',
             'Ongoing': '#64748b'
-        }
+        },
+        title="Career Pathway Timeline (2025-2029)"
     )
     
     fig.update_layout(
-        title="Career Pathway Timeline (2025-2029)",
         plot_bgcolor='rgba(0,0,0,0)',
         paper_bgcolor='rgba(0,0,0,0)',
         font=dict(color='#e2e8f0', family='Inter'),
@@ -439,7 +439,7 @@ def create_professional_pdf_report():
     
     highlights = [
         "• Pathway Progress: First milestone in progress (Google PM 50% complete)",
-        f"• Certification Portfolio: 16 accumulated credentials across 7 domains",
+        f"• Certification Portfolio: {cert_count} accumulated credentials across 7 domains",
         "• Current Focus: Google PM Certification (50% complete) with CAPM exam approved for 2026",
         "• Experience Mapping: 85%+ alignment with PMI knowledge areas from operational background",
         "• Strategic Timeline: 5-year progression plan from foundation to advanced qualifications"
@@ -480,7 +480,7 @@ def create_professional_pdf_report():
     
     metrics = [
         ("Current Focus", "Google PM Certification", "50% Complete", "On Track for Q2 2026"),
-        ("Accumulated Credentials", "16 certifications", "2011-2026", "Portfolio Established"),
+        ("Accumulated Credentials", f"{cert_count} certifications", "2011-2026", "Portfolio Established"),
         ("Next Major Milestone", "CAPM Certification", "Approved/Exam Pending", "2026 Target"),
         ("Long-term Education Path", "OTHM → MSc", "2027-2029", "Future Planning"),
         ("Experience-to-PM Transition", "85% skills alignment", "Industry experience", "Strong Foundation")
@@ -589,22 +589,32 @@ def create_professional_pdf_report():
     return buffer
 
 def get_professional_pdf_download_link():
-    """Generate a download link for the professional PDF report"""
+    """Generate a download link for the professional PDF report - UPDATED FOR MOBILE"""
     try:
         pdf_buffer = create_professional_pdf_report()
         b64 = base64.b64encode(pdf_buffer.read()).decode()
         current_date = "20260113"
+        
+        # UNIVERSAL DOWNLOAD THAT WORKS ON ALL DEVICES
         href = f'''
-        <a href="data:application/pdf;base64,{b64}" 
-           download="Evron_Hadai_PM_Portfolio_{current_date}.pdf" 
-           style="text-decoration: none;">
-            <div style="background: linear-gradient(135deg, #dc2626 0%, #b91c1c 100%); 
-                        color: white; padding: 12px 24px; border-radius: 8px; 
-                        font-weight: 600; text-align: center; transition: all 0.3s ease;
-                        margin: 10px 0; border: 1px solid rgba(255, 255, 255, 0.2);">
-                📊 Download Professional Portfolio
-            </div>
-        </a>
+        <div style="margin: 15px 0; text-align: center;">
+            <a href="data:application/pdf;base64,{b64}" 
+               download="Evron_Hadai_PM_Portfolio_{current_date}.pdf"
+               target="_blank"
+               style="text-decoration: none; display: inline-block;">
+                <div style="background: linear-gradient(135deg, #dc2626 0%, #b91c1c 100%); 
+                            color: white; padding: 15px 30px; border-radius: 10px; 
+                            font-weight: 600; font-size: 16px;
+                            border: 2px solid rgba(255, 255, 255, 0.3);
+                            box-shadow: 0 4px 15px rgba(220, 38, 38, 0.3);
+                            transition: all 0.3s ease;">
+                    📊 Download Professional Portfolio
+                </div>
+            </a>
+            <p style="color: #ef4444; font-size: 14px; margin-top: 10px; font-weight: 600;">
+                📱 Mobile: Tap → Open in new tab → Download from there
+            </p>
+        </div>
         '''
         return href
     except Exception as e:
@@ -968,22 +978,32 @@ def create_project_charter_pdf():
     return buffer
 
 def get_project_charter_pdf_download_link():
-    """Generate a download link for the project charter PDF"""
+    """Generate a download link for the project charter PDF - UPDATED FOR MOBILE"""
     try:
         pdf_buffer = create_project_charter_pdf()
         b64 = base64.b64encode(pdf_buffer.read()).decode()
         current_date = "20260113"
+        
+        # UNIVERSAL DOWNLOAD THAT WORKS ON ALL DEVICES
         href = f'''
-        <a href="data:application/pdf;base64,{b64}" 
-           download="PM_Portfolio_Project_Charter_{current_date}.pdf" 
-           style="text-decoration: none;">
-            <div style="background: linear-gradient(135deg, #7c3aed 0%, #8b5cf6 100%); 
-                        color: white; padding: 12px 24px; border-radius: 8px; 
-                        font-weight: 600; text-align: center; transition: all 0.3s ease;
-                        margin: 10px 0; border: 1px solid rgba(255, 255, 255, 0.2);">
-                📋 Download Project Charter
-            </div>
-        </a>
+        <div style="margin: 15px 0; text-align: center;">
+            <a href="data:application/pdf;base64,{b64}" 
+               download="PM_Portfolio_Project_Charter_{current_date}.pdf"
+               target="_blank"
+               style="text-decoration: none; display: inline-block;">
+                <div style="background: linear-gradient(135deg, #7c3aed 0%, #8b5cf6 100%); 
+                            color: white; padding: 15px 30px; border-radius: 10px; 
+                            font-weight: 600; font-size: 16px;
+                            border: 2px solid rgba(255, 255, 255, 0.3);
+                            box-shadow: 0 4px 15px rgba(124, 58, 237, 0.3);
+                            transition: all 0.3s ease;">
+                    📋 Download Project Charter
+                </div>
+            </a>
+            <p style="color: #8b5cf6; font-size: 14px; margin-top: 10px; font-weight: 600;">
+                📱 Mobile: Tap → Open in new tab → Download from there
+            </p>
+        </div>
         '''
         return href
     except Exception as e:
@@ -1423,22 +1443,32 @@ def create_professional_project_report():
     return buffer
 
 def get_project_report_pdf_download_link():
-    """Generate a download link for the professional project report"""
+    """Generate a download link for the professional project report - UPDATED FOR MOBILE"""
     try:
         pdf_buffer = create_professional_project_report()
         b64 = base64.b64encode(pdf_buffer.read()).decode()
         current_date = "20260113"
+        
+        # UNIVERSAL DOWNLOAD THAT WORKS ON ALL DEVICES
         href = f'''
-        <a href="data:application/pdf;base64,{b64}" 
-           download="PM_Portfolio_Project_Report_{current_date}.pdf" 
-           style="text-decoration: none;">
-            <div style="background: linear-gradient(135deg, #059669 0%, #10b981 100%); 
-                        color: white; padding: 12px 24px; border-radius: 8px; 
-                        font-weight: 600; text-align: center; transition: all 0.3s ease;
-                        margin: 10px 0; border: 1px solid rgba(255, 255, 255, 0.2);">
-                📄 Download Professional Project Report
-            </div>
-        </a>
+        <div style="margin: 15px 0; text-align: center;">
+            <a href="data:application/pdf;base64,{b64}" 
+               download="PM_Portfolio_Project_Report_{current_date}.pdf"
+               target="_blank"
+               style="text-decoration: none; display: inline-block;">
+                <div style="background: linear-gradient(135deg, #059669 0%, #10b981 100%); 
+                            color: white; padding: 15px 30px; border-radius: 10px; 
+                            font-weight: 600; font-size: 16px;
+                            border: 2px solid rgba(255, 255, 255, 0.3);
+                            box-shadow: 0 4px 15px rgba(5, 150, 105, 0.3);
+                            transition: all 0.3s ease;">
+                    📄 Download Professional Project Report
+                </div>
+            </a>
+            <p style="color: #10b981; font-size: 14px; margin-top: 10px; font-weight: 600;">
+                📱 Mobile: Tap → Open in new tab → Download from there
+            </p>
+        </div>
         '''
         return href
     except Exception as e:
@@ -1461,7 +1491,7 @@ if not df_certs.empty:
 else:
     cert_count = len(get_sample_certs())
 
-# Modern CSS
+# Modern CSS with mobile optimization
 st.markdown("""
 <style>
 .stApp {
@@ -1542,30 +1572,18 @@ st.markdown("""
     border-radius: 5px;
 }
 
-/* Make sure PDF button is visible */
+/* Download button hover effects */
 a[download] div {
-    background: linear-gradient(135deg, #dc2626 0%, #b91c1c 100%) !important;
-    color: white !important;
-    padding: 12px 24px !important;
-    border-radius: 8px !important;
-    font-weight: 600 !important;
-    text-align: center !important;
     transition: all 0.3s ease !important;
-    margin: 10px 0 !important;
 }
 
 a[download] div:hover {
     transform: translateY(-2px) !important;
-    box-shadow: 0 8px 20px rgba(185, 28, 28, 0.3) !important;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3) !important;
 }
 
 .stButton > button {
     width: 100%;
-}
-
-/* Ensure 4 columns work in header */
-[data-testid="column"] {
-    padding: 0 5px;
 }
 
 /* Mobile optimizations */
@@ -1583,15 +1601,25 @@ a[download] div:hover {
     }
     
     a[download] div {
-        padding: 10px 15px !important;
-        font-size: 0.9rem !important;
+        padding: 12px 20px !important;
+        font-size: 14px !important;
+    }
+    
+    /* Stack columns on mobile */
+    [data-testid="column"] {
+        width: 100% !important;
+        padding: 5px !important;
     }
 }
 
-/* Mobile download note styling */
-#mobile-download-note {
+/* Mobile download instructions */
+.mobile-download-note {
     background: rgba(30, 41, 59, 0.9);
     border: 1px solid rgba(59, 130, 246, 0.3);
+    border-radius: 10px;
+    padding: 15px;
+    margin: 15px 0;
+    text-align: center;
     animation: pulse 2s infinite;
 }
 
@@ -1599,6 +1627,12 @@ a[download] div:hover {
     0% { opacity: 0.9; }
     50% { opacity: 1; }
     100% { opacity: 0.9; }
+}
+
+/* Ensure PDF links are clickable on mobile */
+a[href*="data:application/pdf"] {
+    cursor: pointer !important;
+    -webkit-tap-highlight-color: rgba(0,0,0,0.1) !important;
 }
 </style>
 """, unsafe_allow_html=True)
@@ -1611,20 +1645,32 @@ st.markdown("""
 </div>
 """, unsafe_allow_html=True)
 
-# Mobile-friendly download buttons with updated LinkedIn styling
+# Mobile download instructions
+st.markdown("""
+<div class="mobile-download-note">
+    <div style="text-align: center; color: #94a3b8;">
+        <div style="font-size: 1.5rem; margin-bottom: 10px;">📱</div>
+        <strong>Mobile Download Guide:</strong> Tap any download button → PDF opens in new tab → Use browser's download option
+    </div>
+</div>
+""", unsafe_allow_html=True)
+
+# Download buttons - UPDATED FOR MOBILE COMPATIBILITY
 col1, col2, col3, col4 = st.columns(4)
 
 with col1:
     st.markdown("""
-    <a href="http://www.linkedin.com/in/evron-hadai" target="_blank" 
-       style="text-decoration: none; display: block;">
-        <div style="background: linear-gradient(135deg, #0a66c2 0%, #1da1f2 100%); 
-                    color: white; padding: 12px 24px; border-radius: 8px; 
-                    font-weight: 600; text-align: center; transition: all 0.3s ease;
-                    margin: 10px 0; border: 1px solid rgba(255, 255, 255, 0.2);">
-            🔗 LinkedIn Profile
-        </div>
-    </a>
+    <div style="margin: 10px 0; text-align: center;">
+        <a href="http://www.linkedin.com/in/evron-hadai" target="_blank" 
+           style="text-decoration: none; display: inline-block;">
+            <div style="background: linear-gradient(135deg, #0a66c2 0%, #1da1f2 100%); 
+                        color: white; padding: 12px 24px; border-radius: 8px; 
+                        font-weight: 600; font-size: 14px;
+                        border: 2px solid rgba(255, 255, 255, 0.2);">
+                🔗 LinkedIn Profile
+            </div>
+        </a>
+    </div>
     """, unsafe_allow_html=True)
 
 with col2:
@@ -1635,22 +1681,6 @@ with col3:
 
 with col4:
     st.markdown(get_project_report_pdf_download_link(), unsafe_allow_html=True)
-
-# Add mobile-specific download instructions
-st.markdown("""
-<div class="glass-card" style="margin-top: 10px; padding: 15px; display: none;" id="mobile-download-note">
-    <div style="text-align: center; color: #94a3b8;">
-        📱 <strong>Mobile Users:</strong> Long-press any download button to save PDFs
-    </div>
-</div>
-
-<script>
-// Show mobile download note only on mobile devices
-if (/Mobi|Android|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
-    document.getElementById('mobile-download-note').style.display = 'block';
-}
-</script>
-""", unsafe_allow_html=True)
 
 # Career Pathway Cards
 st.markdown("""
