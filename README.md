@@ -90,19 +90,7 @@ git push origin main
    - Set Main file path to `app.py`
    - Click "Deploy"
 
-## 📁 Project Structure
 
-```
-pm-portfolio-dashboard/
-├── app.py                    # Main application file
-├── requirements.txt          # Python dependencies
-├── .streamlit/              # Streamlit configuration
-│   └── config.toml          # Theme and settings
-├── data/                    # Data files and samples
-│   ├── sample_core_pm.csv   # PM credentials data
-│   └── sample_certifications.csv
-└── README.md                # This file
-```
 
 ## 📊 Data Sources
 
