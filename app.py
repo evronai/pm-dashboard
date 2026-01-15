@@ -1,4 +1,3 @@
-
 import streamlit as st
 import pandas as pd
 import plotly.express as px
@@ -127,7 +126,7 @@ def get_pm_credentials_chart_data():
 
 @st.cache_data
 def create_gantt_chart():
-    """Create Gantt chart for career pathway"""
+    """Create Gantt chart for career pathway - FIXED VERSION"""
     tasks = [
         dict(Task="Google PM Certification", Start='2025-01-01', Finish='2026-06-30', Status='In Progress'),
         dict(Task="CAPM Exam Preparation", Start='2026-01-01', Finish='2026-12-31', Status='Approved'),
@@ -139,48 +138,30 @@ def create_gantt_chart():
     
     df = pd.DataFrame(tasks)
     
-    # Create figure manually since plotly.figure_factory isn't available
-    fig = go.Figure()
-    
-    # Colors for each status
-    colors_dict = {
-        'In Progress': '#3b82f6',
-        'Approved': '#10b981',
-        'Planned': '#8b5cf6',
-        'Future': '#f59e0b',
-        'Ongoing': '#64748b'
-    }
-    
-    for status in df['Status'].unique():
-        df_status = df[df['Status'] == status]
-        
-        for idx, row in df_status.iterrows():
-            # Convert dates to datetime
-            start_date = pd.to_datetime(row['Start'])
-            end_date = pd.to_datetime(row['Finish'])
-            
-            fig.add_trace(go.Bar(
-                y=[row['Task']],
-                x=[(end_date - start_date).days],
-                base=start_date,
-                orientation='h',
-                name=status,
-                marker_color=colors_dict[status],
-                text=f"{status}<br>{row['Start']} to {row['Finish']}",
-                hoverinfo='text',
-                showlegend=(idx == 0)  # Show legend only once per status
-            ))
+    # FIX: Use plotly express timeline
+    fig = px.timeline(
+        df, 
+        x_start="Start", 
+        x_end="Finish", 
+        y="Task",
+        color="Status",
+        color_discrete_map={
+            'In Progress': '#3b82f6',
+            'Approved': '#10b981',
+            'Planned': '#8b5cf6',
+            'Future': '#f59e0b',
+            'Ongoing': '#64748b'
+        }
+    )
     
     fig.update_layout(
         title="Career Pathway Timeline (2025-2029)",
-        barmode='stack',
         plot_bgcolor='rgba(0,0,0,0)',
         paper_bgcolor='rgba(0,0,0,0)',
         font=dict(color='#e2e8f0', family='Inter'),
         height=500,
         xaxis=dict(
             title="Timeline",
-            type='date',
             showgrid=True,
             gridcolor='rgba(255,255,255,0.1)',
             tickfont=dict(color='#94a3b8')
@@ -458,7 +439,7 @@ def create_professional_pdf_report():
     
     highlights = [
         "• Pathway Progress: First milestone in progress (Google PM 50% complete)",
-        f"• Certification Portfolio: {cert_count} accumulated credentials across 7 domains",
+        f"• Certification Portfolio: 16 accumulated credentials across 7 domains",
         "• Current Focus: Google PM Certification (50% complete) with CAPM exam approved for 2026",
         "• Experience Mapping: 85%+ alignment with PMI knowledge areas from operational background",
         "• Strategic Timeline: 5-year progression plan from foundation to advanced qualifications"
@@ -499,7 +480,7 @@ def create_professional_pdf_report():
     
     metrics = [
         ("Current Focus", "Google PM Certification", "50% Complete", "On Track for Q2 2026"),
-        ("Accumulated Credentials", f"{cert_count} certifications", "2011-2026", "Portfolio Established"),
+        ("Accumulated Credentials", "16 certifications", "2011-2026", "Portfolio Established"),
         ("Next Major Milestone", "CAPM Certification", "Approved/Exam Pending", "2026 Target"),
         ("Long-term Education Path", "OTHM → MSc", "2027-2029", "Future Planning"),
         ("Experience-to-PM Transition", "85% skills alignment", "Industry experience", "Strong Foundation")
@@ -739,7 +720,7 @@ def create_project_charter_pdf():
     project_info = [
         ["Project Sponsor:", "Evron Hadai"],
         ["Project Manager:", "Evron Hadai"],
-        ["Start Date:", "January 10, 2026"],
+        ["Start Date:", "January 9, 2026"],
         ["Target Completion:", "January 13, 2026"],
         ["Version:", "1.0"],
         ["Status:", "Active"]
@@ -866,14 +847,14 @@ def create_project_charter_pdf():
     
     content.append(PageBreak())
     
-    # 5. Timeline & Milestones - UPDATED TO 4 DAYS
+    # 5. Timeline & Milestones - UPDATED TO 5 DAYS
     content.append(Paragraph("5. Timeline & Milestones", heading1_style))
     content.append(Spacer(1, 10))
     
     timeline = [
-        ("Phase 1: Initiation", "Jan 10, 2026", "Requirements gathering, technology selection, initial planning"),
-        ("Phase 2: Planning", "Jan 11, 2026", "Architecture design, data modeling, UI wireframing"),
-        ("Phase 3: Development", "Jan 12, 2026", "Core functionality implementation, visualization development"),
+        ("Phase 1: Initiation", "Jan 9, 2026", "Requirements gathering, technology selection, initial planning"),
+        ("Phase 2: Planning", "Jan 10, 2026", "Architecture design, data modeling, UI wireframing"),
+        ("Phase 3: Development", "Jan 11-12, 2026", "Core functionality implementation, visualization development"),
         ("Phase 4: Testing & Deployment", "Jan 13, 2026", "Testing, debugging, deployment, documentation finalization")
     ]
     
@@ -938,7 +919,7 @@ def create_project_charter_pdf():
     content.append(Paragraph("Resource Allocation:", heading2_style))
     
     resources = [
-        "Development Time: 32 hours (4 days × 8 hours)",
+        "Development Time: 40 hours (5 days × 8 hours)",
         "Testing Time: 8 hours",
         "Documentation: 8 hours",
         "Project Management: 8 hours"
@@ -950,7 +931,7 @@ def create_project_charter_pdf():
     content.append(Spacer(1, 15))
     content.append(Paragraph("Cost Estimate:", heading2_style))
     
-    content.append(Paragraph("Total Estimated Cost: $0 (Utilizing open-source technologies and focused 4-day development sprint)", 
+    content.append(Paragraph("Total Estimated Cost: $0 (Utilizing open-source technologies and focused 5-day development sprint)", 
                             ParagraphStyle(
                                 'CostEstimate',
                                 parent=styles['Normal'],
@@ -1128,7 +1109,7 @@ def create_professional_project_report():
     example of applied project management principles while showcasing career progression from operations management 
     to professional project management.
     
-    The project was completed within a focused 4-day development sprint (January 10-13, 2026), meeting all success criteria 
+    The project was completed within a focused 5-day development sprint (January 9-13, 2026), meeting all success criteria 
     and delivering a fully functional web application with professional documentation. This rapid execution demonstrates 
     effective time management and agile development practices while maintaining quality standards.
     """
@@ -1206,30 +1187,30 @@ def create_professional_project_report():
     
     content.append(PageBreak())
     
-    # 4. Project Timeline - UPDATED TO 4 DAYS
+    # 4. Project Timeline - UPDATED TO 5 DAYS
     content.append(Paragraph("4. Project Execution Timeline", styles['Heading1']))
     content.append(Spacer(1, 10))
     
     timeline_content = """
-    The project was executed over a focused 4-day period from January 10-13, 2026. This rapid timeline was made possible 
+    The project was executed over a focused 5-day period from January 9-13, 2026. This rapid timeline was made possible 
     through efficient planning, parallel workstreams, and agile development practices.
     
-    Day 1 (January 10, 2026): Initiation Phase
+    Day 1 (January 9, 2026): Initiation Phase
     • Requirements gathering and stakeholder analysis
     • Technology stack selection and architecture design
     • Initial project charter development
     
-    Day 2 (January 11, 2026): Planning Phase
+    Day 2 (January 10, 2026): Planning Phase
     • Detailed architecture design and data modeling
     • UI/UX wireframing and design concepts
     • Risk assessment and mitigation planning
     
-    Day 3 (January 12, 2026): Development Phase
+    Days 3-4 (January 11-12, 2026): Development Phase
     • Core functionality implementation
     • Data visualization development
     • Error handling and fallback systems
     
-    Day 4 (January 13, 2026): Testing & Deployment Phase
+    Day 5 (January 13, 2026): Testing & Deployment Phase
     • Comprehensive testing (unit, integration, user acceptance)
     • Performance optimization and debugging
     • Streamlit Cloud deployment
@@ -1239,7 +1220,7 @@ def create_professional_project_report():
     
     content.append(Spacer(1, 15))
     content.append(Paragraph("Timeline Performance:", styles['Heading2']))
-    content.append(Paragraph("All phases completed on schedule. The 4-day timeline was achieved through efficient time management and rapid iterative development.", 
+    content.append(Paragraph("All phases completed on schedule. The 5-day timeline was achieved through efficient time management and rapid iterative development.", 
                             ParagraphStyle(
                                 'TimelinePerf',
                                 parent=styles['Normal'],
@@ -1342,7 +1323,7 @@ def create_professional_project_report():
     
     • Integration Management: Coordinating all project components into a cohesive whole
     • Scope Management: Defining and controlling project boundaries
-    • Schedule Management: 4-day timeline with milestone tracking
+    • Schedule Management: 5-day timeline with milestone tracking
     • Cost Management: Zero-budget project utilizing open-source technologies
     • Quality Management: Testing, validation, and user experience focus
     • Risk Management: Proactive identification and mitigation of potential issues
@@ -1404,10 +1385,10 @@ def create_professional_project_report():
     
     conclusion = """
     The Interactive Project Management Career Portfolio Dashboard project has been successfully completed, 
-    meeting all objectives and success criteria within a 4-day development sprint (January 10-13, 2026). This rapid execution 
+    meeting all objectives and success criteria within a 5-day development sprint (January 9-13, 2026). This rapid execution 
     demonstrates comprehensive project management capabilities while creating a valuable tool for career development.
     
-    Completing this project in just 4 days showcases effective time management, prioritization, and agile 
+    Completing this project in just 5 days showcases effective time management, prioritization, and agile 
     development practices. The dashboard serves as both a portfolio piece showcasing technical skills and 
     a practical demonstration of project management competencies under tight timelines.
     
@@ -1879,7 +1860,7 @@ with col2:
             <div style="border-top: 1px solid rgba(255,255,255,0.1); padding-top: 15px;">
                 <div style="display: flex; justify-content: space-between; margin-bottom: 8px;">
                     <span style="color: #94a3b8;">Timeline:</span>
-                    <span style="color: #e2e8f0; font-weight: 600;">4 days</span>
+                    <span style="color: #e2e8f0; font-weight: 600;">5 days</span>
                 </div>
                 <div style="display: flex; justify-content: space-between; margin-bottom: 8px;">
                     <span style="color: #94a3b8;">Budget:</span>
@@ -1921,22 +1902,22 @@ with col3:
     </div>
     """, unsafe_allow_html=True)
 
-# Rapid Project Execution Section - UPDATED TO 4 DAYS
+# Rapid Project Execution Section - UPDATED TO 5 DAYS
 st.markdown("""
 <div class="heading-background-green">
     <h2>⚡ Rapid Project Execution</h2>
-    <p style="color: rgba(255, 255, 255, 0.9); margin-bottom: 0;">This entire project was completed in a focused 4-day development sprint (Jan 10-13, 2026)</p>
+    <p style="color: rgba(255, 255, 255, 0.9); margin-bottom: 0;">This entire project was completed in a focused 5-day development sprint (Jan 9-13, 2026)</p>
 </div>
 """, unsafe_allow_html=True)
 
-col1, col2, col3, col4 = st.columns(4)
+col1, col2, col3, col4, col5 = st.columns(5)
 
 with col1:
     st.markdown("""
     <div class="glass-card">
         <div style="text-align: center;">
             <div style="font-size: 2rem; margin-bottom: 10px;">🚀</div>
-            <h4 style="margin-bottom: 10px; color: #3b82f6;">Jan 10</h4>
+            <h4 style="margin-bottom: 10px; color: #3b82f6;">Jan 9</h4>
             <div style="color: #94a3b8; font-size: 0.9rem;">
                 • Requirements & Planning<br>
                 • Architecture Design<br>
@@ -1952,7 +1933,7 @@ with col2:
     <div class="glass-card">
         <div style="text-align: center;">
             <div style="font-size: 2rem; margin-bottom: 10px;">⚡</div>
-            <h4 style="margin-bottom: 10px; color: #10b981;">Jan 11</h4>
+            <h4 style="margin-bottom: 10px; color: #10b981;">Jan 10</h4>
             <div style="color: #94a3b8; font-size: 0.9rem;">
                 • Core Functionality<br>
                 • Data Visualizations<br>
@@ -1968,7 +1949,7 @@ with col3:
     <div class="glass-card">
         <div style="text-align: center;">
             <div style="font-size: 2rem; margin-bottom: 10px;">🔧</div>
-            <h4 style="margin-bottom: 10px; color: #8b5cf6;">Jan 12</h4>
+            <h4 style="margin-bottom: 10px; color: #8b5cf6;">Jan 11</h4>
             <div style="color: #94a3b8; font-size: 0.9rem;">
                 • Testing & Debugging<br>
                 • Performance Optimization<br>
@@ -1983,8 +1964,24 @@ with col4:
     st.markdown("""
     <div class="glass-card">
         <div style="text-align: center;">
+            <div style="font-size: 2rem; margin-bottom: 10px;">📊</div>
+            <h4 style="margin-bottom: 10px; color: #f59e0b;">Jan 12</h4>
+            <div style="color: #94a3b8; font-size: 0.9rem;">
+                • Final Development<br>
+                • Integration Testing<br>
+                • User Testing<br>
+                • Quality Assurance
+            </div>
+        </div>
+    </div>
+    """, unsafe_allow_html=True)
+
+with col5:
+    st.markdown("""
+    <div class="glass-card">
+        <div style="text-align: center;">
             <div style="font-size: 2rem; margin-bottom: 10px;">✅</div>
-            <h4 style="margin-bottom: 10px; color: #f59e0b;">Jan 13</h4>
+            <h4 style="margin-bottom: 10px; color: #dc2626;">Jan 13</h4>
             <div style="color: #94a3b8; font-size: 0.9rem;">
                 • Final Testing<br>
                 • Deployment<br>
@@ -2001,7 +1998,7 @@ st.markdown("""
     <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 15px;">
         <div style="background: rgba(30, 41, 59, 0.5); padding: 12px; border-radius: 8px;">
             <div style="color: #94a3b8; font-size: 0.9rem;">Development Speed</div>
-            <div style="color: #10b981; font-size: 1.2rem; font-weight: 600;">4 days</div>
+            <div style="color: #10b981; font-size: 1.2rem; font-weight: 600;">5 days</div>
             <div style="color: #64748b; font-size: 0.8rem;">From concept to deployment</div>
         </div>
         <div style="background: rgba(30, 41, 59, 0.5); padding: 12px; border-radius: 8px;">
@@ -2030,7 +2027,7 @@ with st.expander("📋 **View Project Management Details**", expanded=False):
     **Project Title:** Interactive Project Management Career Portfolio Dashboard  
     **Project Manager:** Evron Hadai  
     **Project Sponsor:** Evron Hadai  
-    **Timeline:** 4-day rapid development sprint (January 10-13, 2026)  
+    **Timeline:** 5-day rapid development sprint (January 9-13, 2026)  
     **Methodology:** Agile with iterative development
     
     ### Project Objectives
@@ -2048,7 +2045,7 @@ with st.expander("📋 **View Project Management Details**", expanded=False):
     - ✅ Error Handling & Fallback Systems
     
     ### Applied Project Management Skills
-    - **Schedule Management:** Completed in 4 days through focused effort
+    - **Schedule Management:** Completed in 5 days through focused effort
     - **Scope Management:** Defined and delivered MVP within tight timeline
     - **Time Management:** Efficient allocation of development hours
     - **Risk Management:** Proactive identification and mitigation of technical risks
