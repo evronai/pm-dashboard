@@ -9,7 +9,6 @@ from reportlab.lib.styles import getSampleStyleSheet, ParagraphStyle
 from reportlab.lib import colors
 from reportlab.lib.enums import TA_CENTER, TA_JUSTIFY
 import base64
-from datetime import datetime  # Added datetime import
 
 # Page config
 st.set_page_config(
@@ -807,76 +806,6 @@ else:
     cert_count = len(get_sample_certs())
 
 # Modern CSS with mobile optimization
-# ==== REPLACE THE LINKEDIN BUTTON SECTION ====
-# Download buttons - DIRECT DOWNLOAD APPROACH (NO NESTED BUTTONS)
-col1, col2, col3, col4 = st.columns(4)
-
-with col1:
-    # LinkedIn button using HTML link (most reliable)
-    linkedin_url = "http://www.linkedin.com/in/evron-hadai"
-    st.markdown(f"""
-    <a href="{linkedin_url}" target="_blank" style="text-decoration: none; display: block;">
-        <div style="
-            background: linear-gradient(135deg, #0a66c2 0%, #1da1f2 100%);
-            color: white;
-            padding: 12px 24px;
-            border-radius: 8px;
-            font-weight: 600;
-            font-size: 14px;
-            border: 2px solid rgba(255, 255, 255, 0.3);
-            text-align: center;
-            transition: all 0.3s ease;
-            cursor: pointer;
-            margin: 5px 0;
-            box-shadow: 0 4px 15px rgba(10, 102, 194, 0.3);
-        ">
-            🔗 LinkedIn Profile
-        </div>
-    </a>
-    """, unsafe_allow_html=True)
-
-with col2:
-    # Create and display portfolio PDF download button
-    portfolio_pdf = create_complete_portfolio_pdf()
-    portfolio_bytes = portfolio_pdf.getvalue()
-    
-    st.download_button(
-        label="📊 Download Portfolio",
-        data=portfolio_bytes,
-        file_name="Evron_Hadai_PM_Portfolio_20260115.pdf",
-        mime="application/pdf",
-        use_container_width=True,
-        key="portfolio_download"
-    )
-
-with col3:
-    # Create and display project charter PDF download button
-    charter_pdf = create_complete_project_charter()
-    charter_bytes = charter_pdf.getvalue()
-    
-    st.download_button(
-        label="📋 Download Project Charter",
-        data=charter_bytes,
-        file_name="PM_Portfolio_Project_Charter_20260115.pdf",
-        mime="application/pdf",
-        use_container_width=True,
-        key="charter_download"
-    )
-
-with col4:
-    # Create and display project report PDF download button
-    report_pdf = create_complete_project_report()
-    report_bytes = report_pdf.getvalue()
-    
-    st.download_button(
-        label="📄 Download Project Report",
-        data=report_bytes,
-        file_name="PM_Portfolio_Project_Report_20260115.pdf",
-        mime="application/pdf",
-        use_container_width=True,
-        key="report_download"
-    )
-# ==== END REPLACEMENT ====
 st.markdown("""
 <style>
 .stApp {
@@ -1087,16 +1016,32 @@ st.markdown("""
 </div>
 """, unsafe_allow_html=True)
 
-# Download buttons - DIRECT DOWNLOAD APPROACH (NO NESTED BUTTONS)
+# Download buttons - FIXED LINKEDIN BUTTON
 col1, col2, col3, col4 = st.columns(4)
 
 with col1:
-    if st.button("🔗 LinkedIn Profile", use_container_width=True, key="linkedin_btn"):
-        st.markdown("""
-        <script>
-            window.open('http://www.linkedin.com/in/evron-hadai', '_blank');
-        </script>
-        """, unsafe_allow_html=True)
+    # LinkedIn button using HTML link (most reliable) - FIXED
+    linkedin_url = "http://www.linkedin.com/in/evron-hadai"
+    st.markdown(f"""
+    <a href="{linkedin_url}" target="_blank" style="text-decoration: none; display: block;">
+        <div style="
+            background: linear-gradient(135deg, #0a66c2 0%, #1da1f2 100%);
+            color: white;
+            padding: 12px 24px;
+            border-radius: 8px;
+            font-weight: 600;
+            font-size: 14px;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            text-align: center;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            margin: 5px 0;
+            box-shadow: 0 4px 15px rgba(10, 102, 194, 0.3);
+        ">
+            🔗 LinkedIn Profile
+        </div>
+    </a>
+    """, unsafe_allow_html=True)
 
 with col2:
     # Create and display portfolio PDF download button
@@ -1532,7 +1477,6 @@ with st.expander("📋 **View Project Management Details**", expanded=False):
     - **Data Processing:** Pandas
     - **Data Storage:** Google Sheets API
     - **Deployment:** Streamlit Cloud
-    - **Code:** Deepseek AI
     
     ### Success Metrics
     - Dashboard performance: <3s load time ✓
