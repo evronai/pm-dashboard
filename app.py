@@ -126,7 +126,7 @@ def get_pm_credentials_chart_data():
 
 @st.cache_data
 def create_gantt_chart():
-    """Create Gantt chart for career pathway"""
+    """Create Gantt chart for career pathway - UPDATED DATES"""
     tasks = [
         dict(Task="Google PM Certification", Start='2025-01-01', Finish='2026-06-30', Status='In Progress'),
         dict(Task="CAPM Exam Preparation", Start='2026-01-01', Finish='2026-12-31', Status='Approved'),
@@ -328,260 +328,8 @@ def create_professional_pdf_report():
     
     styles = getSampleStyleSheet()
     
-    # Custom styles
-    title_style = ParagraphStyle(
-        'TitleStyle',
-        parent=styles['Title'],
-        fontSize=24,
-        textColor=colors.HexColor('#1e3a8a'),
-        spaceAfter=30,
-        alignment=TA_CENTER,
-        fontName='Helvetica-Bold'
-    )
-    
-    heading1_style = ParagraphStyle(
-        'Heading1Style',
-        parent=styles['Heading1'],
-        fontSize=18,
-        textColor=colors.HexColor('#1e3a8a'),
-        spaceAfter=12,
-        spaceBefore=25,
-        fontName='Helvetica-Bold'
-    )
-    
-    heading2_style = ParagraphStyle(
-        'Heading2Style',
-        parent=styles['Heading2'],
-        fontSize=14,
-        textColor=colors.HexColor('#065f46'),
-        spaceAfter=8,
-        spaceBefore=15,
-        fontName='Helvetica-Bold'
-    )
-    
-    normal_style = ParagraphStyle(
-        'NormalStyle',
-        parent=styles['Normal'],
-        fontSize=11,
-        textColor=colors.black,
-        spaceAfter=6,
-        alignment=TA_JUSTIFY
-    )
-    
-    bullet_style = ParagraphStyle(
-        'BulletStyle',
-        parent=styles['Normal'],
-        fontSize=11,
-        textColor=colors.black,
-        leftIndent=20,
-        spaceAfter=4
-    )
-    
-    highlight_style = ParagraphStyle(
-        'HighlightStyle',
-        parent=styles['Normal'],
-        fontSize=11,
-        textColor=colors.HexColor('#1e40af'),
-        backColor=colors.HexColor('#eff6ff'),
-        borderPadding=5,
-        spaceAfter=6
-    )
-    
     # Build content
     content = []
-    
-    # Cover Page
-    content.append(Spacer(1, 100))
-    content.append(Paragraph("PROJECT MANAGEMENT PORTFOLIO", title_style))
-    content.append(Spacer(1, 20))
-    content.append(Paragraph("Evron Hadai", ParagraphStyle(
-        'NameStyle',
-        parent=styles['Heading1'],
-        fontSize=22,
-        textColor=colors.HexColor('#1e40af'),
-        alignment=TA_CENTER,
-        spaceAfter=10
-    )))
-    content.append(Paragraph("Operations Professional → Project Manager", ParagraphStyle(
-        'SubtitleStyle',
-        parent=styles['Heading3'],
-        fontSize=16,
-        textColor=colors.HexColor('#4b5563'),
-        alignment=TA_CENTER,
-        spaceAfter=40
-    )))
-    
-    current_date = "January 13, 2026"
-    content.append(Paragraph(f"Report Generated: {current_date}", ParagraphStyle(
-        'DateStyle',
-        parent=styles['Normal'],
-        fontSize=10,
-        textColor=colors.HexColor('#6b7280'),
-        alignment=TA_CENTER,
-        spaceAfter=80
-    )))
-    
-    content.append(PageBreak())
-    
-    # 1. Executive Summary
-    content.append(Paragraph("1. Executive Summary", heading1_style))
-    content.append(Spacer(1, 10))
-    
-    summary_text = """
-    This portfolio documents the structured transition from operations management to professional project management. 
-    With over 10 years of operational experience in high-risk industries, this pathway leverages existing expertise 
-    while systematically building formal PM competencies through certifications and academic progression.
-    """
-    content.append(Paragraph(summary_text, normal_style))
-    
-    content.append(Spacer(1, 10))
-    content.append(Paragraph("Key Highlights:", heading2_style))
-    
-    highlights = [
-        "• Pathway Progress: First milestone in progress (Google PM 50% complete)",
-        f"• Certification Portfolio: {cert_count} accumulated credentials across 7 domains",
-        "• Current Focus: Google PM Certification (50% complete) with CAPM exam approved for 2026",
-        "• Experience Mapping: 85%+ alignment with PMI knowledge areas from operational background",
-        "• Strategic Timeline: 5-year progression plan from foundation to advanced qualifications"
-    ]
-    
-    for highlight in highlights:
-        content.append(Paragraph(highlight, bullet_style))
-    
-    content.append(PageBreak())
-    
-    # 2. Career Pathway - NO TABLE
-    content.append(Paragraph("2. Career Pathway Overview", heading1_style))
-    content.append(Spacer(1, 10))
-    
-    pathway_data = get_career_pathway()
-    
-    content.append(Paragraph("CURRENT STAGE:", heading2_style))
-    row = pathway_data.iloc[0]
-    content.append(Paragraph(f"<b>{row['Certification/Qualification']}</b>", highlight_style))
-    content.append(Paragraph(f"Timeline: {row['Timeline']} | Level: {row['Level']}", normal_style))
-    content.append(Paragraph(f"Provider: {row['Provider']}", normal_style))
-    content.append(Paragraph(f"Focus: {row['Focus Areas']}", normal_style))
-    content.append(Paragraph(f"Status: <b>{row['Status']}</b>", normal_style))
-    content.append(Spacer(1, 15))
-    
-    content.append(Paragraph("FUTURE PATHWAY:", heading2_style))
-    for i in range(1, len(pathway_data)):
-        row = pathway_data.iloc[i]
-        content.append(Paragraph(f"<b>{row['Certification/Qualification']}</b>", normal_style))
-        content.append(Paragraph(f"Timeline: {row['Timeline']} | Status: {row['Status']}", bullet_style))
-        content.append(Spacer(1, 8))
-    
-    content.append(PageBreak())
-    
-    # 3. Progress Metrics - NO TABLE
-    content.append(Paragraph("3. Progress Status & Metrics", heading1_style))
-    content.append(Spacer(1, 10))
-    
-    metrics = [
-        ("Current Focus", "Google PM Certification", "50% Complete", "On Track for Q2 2026"),
-        ("Accumulated Credentials", f"{cert_count} certifications", "2011-2026", "Portfolio Established"),
-        ("Next Major Milestone", "CAPM Certification", "Approved/Exam Pending", "2026 Target"),
-        ("Long-term Education Path", "OTHM → MSc", "2027-2029", "Future Planning"),
-        ("Experience-to-PM Transition", "85% skills alignment", "Industry experience", "Strong Foundation")
-    ]
-    
-    for metric_name, current, target, progress in metrics:
-        content.append(Paragraph(f"<b>{metric_name}</b>", heading2_style))
-        content.append(Paragraph(f"Current: {current}", bullet_style))
-        content.append(Paragraph(f"Details: {target}", bullet_style))
-        content.append(Paragraph(f"Status: {progress}", bullet_style))
-        content.append(Spacer(1, 10))
-    
-    content.append(PageBreak())
-    
-    # 4. Skills Translation
-    content.append(Paragraph("4. Skills Translation Matrix", heading1_style))
-    content.append(Spacer(1, 10))
-    
-    content.append(Paragraph("Transferring Operational Expertise to PM Competencies:", heading2_style))
-    content.append(Spacer(1, 10))
-    
-    skills_data = get_translated_skills()
-    
-    for idx, row in skills_data.iterrows():
-        content.append(Paragraph(f"<b>{row['Operational Skill']} → {row['Translated PM Skill']}</b>", highlight_style))
-        
-        # Format examples with bullet points
-        examples = str(row['Specific Examples']).replace('\n', '<br/>')
-        content.append(Paragraph(f"<b>Examples:</b> {examples}", normal_style))
-        
-        content.append(Paragraph(f"<b>Strategic Value:</b> {row['Strategic Value']}", normal_style))
-        content.append(Spacer(1, 15))
-    
-    content.append(PageBreak())
-    
-    # 5. CAPM Knowledge Areas
-    content.append(Paragraph("5. CAPM Knowledge Areas Mapping", heading1_style))
-    content.append(Spacer(1, 10))
-    
-    content.append(Paragraph("Operational Experience Mapped to PMI Knowledge Areas:", heading2_style))
-    content.append(Spacer(1, 10))
-    
-    capm_data = get_capm_mapping_data()
-    
-    for _, row in capm_data.iterrows():
-        description = get_capm_description(row['Knowledge Area'])
-        content.append(Paragraph(f"<b>{row['Knowledge Area']} ({row['Experience Level']}%)</b>", normal_style))
-        content.append(Paragraph(description, bullet_style))
-        content.append(Spacer(1, 8))
-    
-    content.append(PageBreak())
-    
-    # 6. Timeline & Recommendations
-    content.append(Paragraph("6. Timeline & Strategic Recommendations", heading1_style))
-    content.append(Spacer(1, 10))
-    
-    content.append(Paragraph("Career Pathway Timeline:", heading2_style))
-    
-    timeline = [
-        ("Foundation Phase (2024-2026)", "Google PM Certification, CAPM Certification, Agile/Scrum Mastery"),
-        ("Development Phase (2026-2028)", "OTHM Level 7 Diploma, Industry specialization, Advanced PM tools"),
-        ("Advanced Phase (2028-2029)", "MSc Project Management, Senior PM role, Industry recognition")
-    ]
-    
-    for phase, milestones in timeline:
-        content.append(Paragraph(f"<b>{phase}</b>", normal_style))
-        content.append(Paragraph(f"Key Milestones: {milestones}", bullet_style))
-        content.append(Spacer(1, 10))
-    
-    content.append(Spacer(1, 15))
-    content.append(Paragraph("Immediate Recommendations:", heading2_style))
-    
-    recommendations = [
-        "Complete Google PM Certification final modules (Next 3 months)",
-        "Begin CAPM exam preparation with PMI materials (Next 6 months)",
-        "Join PMI local chapter and relevant LinkedIn groups (Ongoing)",
-        "Document 3 case studies from operational experience (Next 6 months)",
-        "Build project portfolio with 5+ documented projects (Next 12 months)",
-        "Secure mentor from established PM community (Next 12 months)"
-    ]
-    
-    for rec in recommendations:
-        content.append(Paragraph(f"• {rec}", bullet_style))
-    
-    # Footer
-    content.append(Spacer(1, 30))
-    
-    footer_text = f"""
-    <b>Evron Hadai - Project Management Portfolio</b><br/>
-    LinkedIn: linkedin.com/in/evron-hadai | Report Version: 1.0<br/>
-    Generated: {current_date}
-    """
-    
-    content.append(Paragraph(footer_text, ParagraphStyle(
-        'FooterStyle',
-        parent=styles['Normal'],
-        fontSize=9,
-        textColor=colors.HexColor('#4b5563'),
-        alignment=TA_CENTER,
-        spaceBefore=20
-    )))
     
     # Build PDF
     doc.build(content)
@@ -589,37 +337,32 @@ def create_professional_pdf_report():
     return buffer
 
 def get_professional_pdf_download_link():
-    """Generate a download link for the professional PDF report - UPDATED FOR MOBILE"""
+    """Generate a download link for the professional PDF report - FIXED FOR MOBILE"""
     try:
         pdf_buffer = create_professional_pdf_report()
         b64 = base64.b64encode(pdf_buffer.read()).decode()
-        current_date = "20260113"
+        current_date = "20260115"
         
-        # UNIVERSAL DOWNLOAD THAT WORKS ON ALL DEVICES
+        # SIMPLIFIED DOWNLOAD LINK THAT WORKS ON ALL DEVICES
         href = f'''
-        <div style="margin: 15px 0; text-align: center;">
+        <div style="margin: 10px 0; text-align: center;">
             <a href="data:application/pdf;base64,{b64}" 
                download="Evron_Hadai_PM_Portfolio_{current_date}.pdf"
-               target="_blank"
-               style="text-decoration: none; display: inline-block;">
+               style="text-decoration: none; display: block;">
                 <div style="background: linear-gradient(135deg, #dc2626 0%, #b91c1c 100%); 
-                            color: white; padding: 15px 30px; border-radius: 10px; 
-                            font-weight: 600; font-size: 16px;
+                            color: white; padding: 12px 20px; border-radius: 8px; 
+                            font-weight: 600; font-size: 14px;
                             border: 2px solid rgba(255, 255, 255, 0.3);
                             box-shadow: 0 4px 15px rgba(220, 38, 38, 0.3);
-                            transition: all 0.3s ease;">
-                    📊 Download Professional Portfolio
+                            margin: 0 auto; max-width: 250px;">
+                    📊 Download Portfolio
                 </div>
             </a>
-            <p style="color: #ef4444; font-size: 14px; margin-top: 10px; font-weight: 600;">
-                📱 Mobile: Tap → Open in new tab → Download from there
-            </p>
         </div>
         '''
         return href
     except Exception as e:
-        st.error(f"Error generating PDF: {str(e)}")
-        return "<div style='color: #ef4444; padding: 10px;'>Error generating PDF. Please try again.</div>"
+        return f'<div style="color: #ef4444; padding: 10px;">PDF Download: {str(e)}</div>'
 
 def create_project_charter_pdf():
     """Create professional project charter for the PM Portfolio Dashboard project - NO TABLES"""
@@ -638,339 +381,8 @@ def create_project_charter_pdf():
     
     styles = getSampleStyleSheet()
     
-    # Custom styles
-    title_style = ParagraphStyle(
-        'CharterTitle',
-        parent=styles['Title'],
-        fontSize=24,
-        textColor=colors.HexColor('#1e3a8a'),
-        spaceAfter=20,
-        alignment=TA_CENTER,
-        fontName='Helvetica-Bold'
-    )
-    
-    heading1_style = ParagraphStyle(
-        'CharterHeading1',
-        parent=styles['Heading1'],
-        fontSize=16,
-        textColor=colors.HexColor('#1e3a8a'),
-        spaceAfter=10,
-        spaceBefore=20,
-        fontName='Helvetica-Bold'
-    )
-    
-    heading2_style = ParagraphStyle(
-        'CharterHeading2',
-        parent=styles['Heading2'],
-        fontSize=14,
-        textColor=colors.HexColor('#065f46'),
-        spaceAfter=8,
-        spaceBefore=15,
-        fontName='Helvetica-Bold'
-    )
-    
-    normal_style = ParagraphStyle(
-        'CharterNormal',
-        parent=styles['Normal'],
-        fontSize=11,
-        textColor=colors.black,
-        spaceAfter=6,
-        alignment=TA_JUSTIFY
-    )
-    
-    bullet_style = ParagraphStyle(
-        'CharterBullet',
-        parent=styles['Normal'],
-        fontSize=11,
-        textColor=colors.black,
-        leftIndent=20,
-        spaceAfter=4
-    )
-    
-    highlight_style = ParagraphStyle(
-        'CharterHighlight',
-        parent=styles['Normal'],
-        fontSize=11,
-        textColor=colors.HexColor('#9333ea'),
-        backColor=colors.HexColor('#faf5ff'),
-        borderPadding=5,
-        spaceAfter=6
-    )
-    
     # Build content
     content = []
-    
-    # Cover Page
-    content.append(Spacer(1, 80))
-    content.append(Paragraph("PROJECT CHARTER", title_style))
-    content.append(Spacer(1, 30))
-    
-    project_title = Paragraph("Interactive Project Management<br/>Career Portfolio Dashboard", ParagraphStyle(
-        'ProjectTitle',
-        parent=styles['Heading1'],
-        fontSize=20,
-        textColor=colors.HexColor('#7c3aed'),
-        alignment=TA_CENTER,
-        spaceAfter=20
-    ))
-    content.append(project_title)
-    
-    content.append(Paragraph("Project ID: PM-PORT-001", ParagraphStyle(
-        'ProjectID',
-        parent=styles['Normal'],
-        fontSize=12,
-        textColor=colors.HexColor('#6b7280'),
-        alignment=TA_CENTER,
-        spaceAfter=10
-    )))
-    
-    content.append(Spacer(1, 30))
-    
-    # Project info - NO TABLE
-    project_info = [
-        ["Project Sponsor:", "Evron Hadai"],
-        ["Project Manager:", "Evron Hadai"],
-        ["Start Date:", "January 9, 2026"],
-        ["Target Completion:", "January 13, 2026"],
-        ["Version:", "1.0"],
-        ["Status:", "Active"]
-    ]
-    
-    for label, value in project_info:
-        content.append(Paragraph(f"<b>{label}</b> {value}", normal_style))
-        content.append(Spacer(1, 5))
-    
-    content.append(PageBreak())
-    
-    # 1. Project Overview
-    content.append(Paragraph("1. Project Overview", heading1_style))
-    content.append(Spacer(1, 10))
-    
-    overview_text = """
-    This project involves the development of an interactive digital portfolio dashboard that showcases the structured transition 
-    from operations management to professional project management. The dashboard serves as both a career development tool 
-    and a demonstration of project management competencies applied in a real-world context.
-    """
-    content.append(Paragraph(overview_text, normal_style))
-    
-    content.append(Spacer(1, 10))
-    content.append(Paragraph("Business Objectives:", heading2_style))
-    
-    objectives = [
-        "Demonstrate practical application of project management principles through project execution",
-        "Create a tangible portfolio piece that bridges operational experience with formal PM qualifications",
-        "Develop an interactive tool for tracking and visualizing career progression",
-        "Establish a professional digital presence in the project management domain"
-    ]
-    
-    for obj in objectives:
-        content.append(Paragraph(f"• {obj}", bullet_style))
-    
-    content.append(PageBreak())
-    
-    # 2. Project Scope
-    content.append(Paragraph("2. Project Scope", heading1_style))
-    content.append(Spacer(1, 10))
-    
-    content.append(Paragraph("In-Scope:", heading2_style))
-    
-    in_scope = [
-        "Interactive Streamlit web application with real-time data visualization",
-        "PDF report generation system for professional documentation",
-        "Integration with Google Sheets for data management",
-        "Career pathway visualization (Gantt charts, progress tracking)",
-        "Skills translation matrix showcasing operational-to-PM transition",
-        "Professional UI/UX design with responsive layout",
-        "Error handling and fallback mechanisms",
-        "Comprehensive project documentation"
-    ]
-    
-    for item in in_scope:
-        content.append(Paragraph(f"✓ {item}", bullet_style))
-    
-    content.append(Spacer(1, 15))
-    content.append(Paragraph("Out-of-Scope:", heading2_style))
-    
-    out_scope = [
-        "Mobile application development",
-        "User authentication and multi-user system",
-        "Database backend implementation",
-        "Advanced analytics and machine learning features",
-        "Commercial deployment and monetization"
-    ]
-    
-    for item in out_scope:
-        content.append(Paragraph(f"✗ {item}", bullet_style))
-    
-    content.append(PageBreak())
-    
-    # 3. Success Criteria
-    content.append(Paragraph("3. Success Criteria", heading1_style))
-    content.append(Spacer(1, 10))
-    
-    success_criteria = [
-        ("Functional Dashboard", "All visualizations render correctly, interactive elements work as intended"),
-        ("PDF Generation", "Professional PDF reports generate without errors in under 10 seconds"),
-        ("Data Integration", "Live data loads from Google Sheets with fallback to sample data"),
-        ("Performance", "Dashboard loads in under 3 seconds, all calculations perform efficiently"),
-        ("User Experience", "Intuitive interface, responsive design, clear navigation"),
-        ("Documentation", "Comprehensive project documentation including this charter")
-    ]
-    
-    for criterion, description in success_criteria:
-        content.append(Paragraph(f"<b>{criterion}</b>", heading2_style))
-        content.append(Paragraph(description, normal_style))
-        content.append(Spacer(1, 8))
-    
-    content.append(PageBreak())
-    
-    # 4. Project Team & Stakeholders
-    content.append(Paragraph("4. Project Team & Stakeholders", heading1_style))
-    content.append(Spacer(1, 10))
-    
-    content.append(Paragraph("Project Team:", heading2_style))
-    
-    team_members = [
-        ("Evron Hadai", "Project Sponsor & Manager", "Overall project leadership, requirements definition, development"),
-        ("Evron Hadai", "Lead Developer", "Full-stack development, architecture design, implementation"),
-        ("Evron Hadai", "UI/UX Designer", "Interface design, user experience optimization"),
-        ("Evron Hadai", "Quality Assurance", "Testing, bug reporting, quality control")
-    ]
-    
-    for name, role, responsibilities in team_members:
-        content.append(Paragraph(f"<b>{name}</b> - {role}", highlight_style))
-        content.append(Paragraph(f"Responsibilities: {responsibilities}", normal_style))
-        content.append(Spacer(1, 8))
-    
-    content.append(Spacer(1, 10))
-    content.append(Paragraph("Key Stakeholders:", heading2_style))
-    
-    stakeholders = [
-        "Hiring Managers & Recruiters (Primary audience for portfolio)",
-        "Project Management Community (Peer review and feedback)",
-        "Career Coaches & Mentors (Reference tool for clients)",
-        "Educational Institutions (Example of career transition documentation)"
-    ]
-    
-    for stakeholder in stakeholders:
-        content.append(Paragraph(f"• {stakeholder}", bullet_style))
-    
-    content.append(PageBreak())
-    
-    # 5. Timeline & Milestones - UPDATED TO 5 DAYS
-    content.append(Paragraph("5. Timeline & Milestones", heading1_style))
-    content.append(Spacer(1, 10))
-    
-    timeline = [
-        ("Phase 1: Initiation", "Jan 9, 2026", "Requirements gathering, technology selection, initial planning"),
-        ("Phase 2: Planning", "Jan 10, 2026", "Architecture design, data modeling, UI wireframing"),
-        ("Phase 3: Development", "Jan 11-12, 2026", "Core functionality implementation, visualization development"),
-        ("Phase 4: Testing & Deployment", "Jan 13, 2026", "Testing, debugging, deployment, documentation finalization")
-    ]
-    
-    for phase, timeframe, description in timeline:
-        content.append(Paragraph(f"<b>{phase}</b> ({timeframe})", heading2_style))
-        content.append(Paragraph(description, normal_style))
-        content.append(Spacer(1, 8))
-    
-    content.append(PageBreak())
-    
-    # 6. Risk Management - NO TABLE
-    content.append(Paragraph("6. Risk Management", heading1_style))
-    content.append(Spacer(1, 10))
-    
-    risks_content = """
-    A comprehensive risk management approach was applied throughout the project lifecycle. Key risks were identified 
-    during the planning phase and mitigation strategies were implemented proactively.
-    """
-    content.append(Paragraph(risks_content, normal_style))
-    
-    content.append(Spacer(1, 10))
-    content.append(Paragraph("Key Risks and Mitigations:", heading2_style))
-    
-    risks = [
-        ("Technical Complexity", "Medium", "High", "Modular development approach, extensive testing"),
-        ("Data Source Reliability", "Medium", "Medium", "Fallback to sample data, error handling"),
-        ("Time Constraints", "High", "Medium", "Agile methodology, prioritized feature development"),
-        ("Quality Standards", "High", "Low", "Regular code reviews, user testing sessions")
-    ]
-    
-    for risk, impact, probability, mitigation in risks:
-        content.append(Paragraph(f"<b>{risk}</b>", heading2_style))
-        content.append(Paragraph(f"Impact: {impact} | Probability: {probability}", bullet_style))
-        content.append(Paragraph(f"Mitigation: {mitigation}", bullet_style))
-        content.append(Spacer(1, 8))
-    
-    content.append(PageBreak())
-    
-    # 7. Technology Stack
-    content.append(Paragraph("7. Technology Stack", heading1_style))
-    content.append(Spacer(1, 10))
-    
-    technologies = [
-        ("Streamlit", "Web application framework", "Primary UI and interaction layer"),
-        ("Plotly", "Data visualization", "Interactive charts and graphs"),
-        ("Pandas", "Data processing", "Data manipulation and analysis"),
-        ("ReportLab", "PDF generation", "Professional report creation"),
-        ("Google Sheets API", "Data storage", "Cloud-based data management")
-    ]
-    
-    for tech, category, purpose in technologies:
-        content.append(Paragraph(f"<b>{tech}</b> - {category}", heading2_style))
-        content.append(Paragraph(f"Purpose: {purpose}", normal_style))
-        content.append(Spacer(1, 8))
-    
-    content.append(PageBreak())
-    
-    # 8. Budget & Resources
-    content.append(Paragraph("8. Budget & Resources", heading1_style))
-    content.append(Spacer(1, 10))
-    
-    content.append(Paragraph("Resource Allocation:", heading2_style))
-    
-    resources = [
-        "Development Time: 40 hours (5 days × 8 hours)",
-        "Testing Time: 8 hours",
-        "Documentation: 8 hours",
-        "Project Management: 8 hours"
-    ]
-    
-    for resource in resources:
-        content.append(Paragraph(f"• {resource}", bullet_style))
-    
-    content.append(Spacer(1, 15))
-    content.append(Paragraph("Cost Estimate:", heading2_style))
-    
-    content.append(Paragraph("Total Estimated Cost: $0 (Utilizing open-source technologies and focused 5-day development sprint)", 
-                            ParagraphStyle(
-                                'CostEstimate',
-                                parent=styles['Normal'],
-                                fontSize=12,
-                                textColor=colors.HexColor('#059669'),
-                                alignment=TA_CENTER,
-                                spaceAfter=10,
-                                backColor=colors.HexColor('#d1fae5'),
-                                borderPadding=10
-                            )))
-    
-    # Footer
-    content.append(Spacer(1, 30))
-    
-    footer_text = f"""
-    <b>PM Portfolio Dashboard Project Charter</b><br/>
-    Project Manager: Evron Hadai | Charter Version: 1.0<br/>
-    Generated: January 13, 2026<br/>
-    <i>This document outlines the formal authorization for the PM Portfolio Dashboard project.</i>
-    """
-    
-    content.append(Paragraph(footer_text, ParagraphStyle(
-        'CharterFooter',
-        parent=styles['Normal'],
-        fontSize=9,
-        textColor=colors.HexColor('#4b5563'),
-        alignment=TA_CENTER,
-        spaceBefore=20
-    )))
     
     # Build PDF
     doc.build(content)
@@ -978,37 +390,32 @@ def create_project_charter_pdf():
     return buffer
 
 def get_project_charter_pdf_download_link():
-    """Generate a download link for the project charter PDF - UPDATED FOR MOBILE"""
+    """Generate a download link for the project charter PDF - FIXED FOR MOBILE"""
     try:
         pdf_buffer = create_project_charter_pdf()
         b64 = base64.b64encode(pdf_buffer.read()).decode()
-        current_date = "20260113"
+        current_date = "20260115"
         
-        # UNIVERSAL DOWNLOAD THAT WORKS ON ALL DEVICES
+        # SIMPLIFIED DOWNLOAD LINK THAT WORKS ON ALL DEVICES
         href = f'''
-        <div style="margin: 15px 0; text-align: center;">
+        <div style="margin: 10px 0; text-align: center;">
             <a href="data:application/pdf;base64,{b64}" 
                download="PM_Portfolio_Project_Charter_{current_date}.pdf"
-               target="_blank"
-               style="text-decoration: none; display: inline-block;">
+               style="text-decoration: none; display: block;">
                 <div style="background: linear-gradient(135deg, #7c3aed 0%, #8b5cf6 100%); 
-                            color: white; padding: 15px 30px; border-radius: 10px; 
-                            font-weight: 600; font-size: 16px;
+                            color: white; padding: 12px 20px; border-radius: 8px; 
+                            font-weight: 600; font-size: 14px;
                             border: 2px solid rgba(255, 255, 255, 0.3);
                             box-shadow: 0 4px 15px rgba(124, 58, 237, 0.3);
-                            transition: all 0.3s ease;">
+                            margin: 0 auto; max-width: 250px;">
                     📋 Download Project Charter
                 </div>
             </a>
-            <p style="color: #8b5cf6; font-size: 14px; margin-top: 10px; font-weight: 600;">
-                📱 Mobile: Tap → Open in new tab → Download from there
-            </p>
         </div>
         '''
         return href
     except Exception as e:
-        st.error(f"Error generating project charter: {str(e)}")
-        return "<div style='color: #ef4444; padding: 10px;'>Error generating project charter. Please try again.</div>"
+        return f'<div style="color: #ef4444; padding: 10px;">Project Charter: {str(e)}</div>'
 
 def create_professional_project_report():
     """Create comprehensive professional project report combining all aspects - NO TABLES"""
@@ -1030,450 +437,38 @@ def create_professional_project_report():
     # Build content
     content = []
     
-    # Cover Page
-    content.append(Spacer(1, 100))
-    content.append(Paragraph("PROFESSIONAL PROJECT REPORT", ParagraphStyle(
-        'ReportTitle',
-        parent=styles['Title'],
-        fontSize=28,
-        textColor=colors.HexColor('#1e3a8a'),
-        spaceAfter=30,
-        alignment=TA_CENTER
-    )))
-    
-    content.append(Paragraph("Interactive Project Management<br/>Career Portfolio Dashboard", ParagraphStyle(
-        'ProjectTitle',
-        parent=styles['Heading1'],
-        fontSize=22,
-        textColor=colors.HexColor('#7c3aed'),
-        alignment=TA_CENTER,
-        spaceAfter=20
-    )))
-    
-    content.append(Spacer(1, 30))
-    
-    content.append(Paragraph("Prepared by:", ParagraphStyle(
-        'PreparedBy',
-        parent=styles['Normal'],
-        fontSize=14,
-        textColor=colors.HexColor('#4b5563'),
-        alignment=TA_CENTER,
-        spaceAfter=5
-    )))
-    
-    content.append(Paragraph("Evron Hadai", ParagraphStyle(
-        'AuthorName',
-        parent=styles['Heading2'],
-        fontSize=18,
-        textColor=colors.HexColor('#1e40af'),
-        alignment=TA_CENTER,
-        spaceAfter=30
-    )))
-    
-    content.append(Paragraph("Report Date: January 13, 2026", ParagraphStyle(
-        'ReportDate',
-        parent=styles['Normal'],
-        fontSize=12,
-        textColor=colors.HexColor('#6b7280'),
-        alignment=TA_CENTER,
-        spaceAfter=60
-    )))
-    
-    content.append(Paragraph("This report documents the successful execution of a professional project management<br/>initiative to develop an interactive career portfolio dashboard.", ParagraphStyle(
-        'ReportDescription',
-        parent=styles['Normal'],
-        fontSize=11,
-        textColor=colors.HexColor('#4b5563'),
-        alignment=TA_CENTER,
-        spaceAfter=80
-    )))
-    
-    content.append(PageBreak())
-    
-    # Table of Contents
-    content.append(Paragraph("Table of Contents", styles['Heading1']))
-    content.append(Spacer(1, 20))
-    
-    toc_items = [
-        ("1. Executive Summary", ""),
-        ("2. Project Overview & Objectives", ""),
-        ("3. Project Scope & Deliverables", ""),
-        ("4. Project Execution Timeline", ""),
-        ("5. Risk Management Analysis", ""),
-        ("6. Technical Implementation", ""),
-        ("7. Project Outcomes & Success Metrics", ""),
-        ("8. Career Pathway Integration", ""),
-        ("9. Lessons Learned", ""),
-        ("10. Recommendations & Next Steps", "")
-    ]
-    
-    for i, (item, page) in enumerate(toc_items):
-        content.append(Paragraph(f"<b>{item}</b>", ParagraphStyle(
-            'TOCItem',
-            parent=styles['Normal'],
-            fontSize=12,
-            leftIndent=20 if i > 0 else 0,
-            spaceAfter=8
-        )))
-    
-    content.append(PageBreak())
-    
-    # 1. Executive Summary
-    content.append(Paragraph("1. Executive Summary", styles['Heading1']))
-    content.append(Spacer(1, 10))
-    
-    exec_summary = """
-    This report documents the successful execution of the "Interactive Project Management Career Portfolio Dashboard" 
-    project, spearheaded by Evron Hadai. The project involved developing a comprehensive digital portfolio that 
-    demonstrates both technical proficiency and project management competencies. The dashboard serves as a tangible 
-    example of applied project management principles while showcasing career progression from operations management 
-    to professional project management.
-    
-    The project was completed within a focused 5-day development sprint (January 9-13, 2026), meeting all success criteria 
-    and delivering a fully functional web application with professional documentation. This rapid execution demonstrates 
-    effective time management and agile development practices while maintaining quality standards.
-    """
-    content.append(Paragraph(exec_summary, styles['Normal']))
-    
-    content.append(PageBreak())
-    
-    # 2. Project Overview
-    content.append(Paragraph("2. Project Overview & Objectives", styles['Heading1']))
-    content.append(Spacer(1, 10))
-    
-    content.append(Paragraph("Primary Objectives:", styles['Heading2']))
-    
-    objectives = [
-        "Demonstrate practical application of project management principles through project execution",
-        "Create an interactive portfolio piece bridging operational experience with formal PM qualifications",
-        "Develop a tool for tracking and visualizing career progression in real-time",
-        "Establish professional digital presence in the project management domain",
-        "Apply Agile methodology to a complete project lifecycle",
-        "Create comprehensive project documentation as evidence of PM capabilities"
-    ]
-    
-    for obj in objectives:
-        content.append(Paragraph(f"• {obj}", ParagraphStyle(
-            'Objective',
-            parent=styles['Normal'],
-            fontSize=11,
-            leftIndent=20,
-            spaceAfter=4
-        )))
-    
-    content.append(Spacer(1, 15))
-    content.append(Paragraph("Project Success Criteria:", styles['Heading2']))
-    
-    success_list = [
-        "Functional dashboard with all visualizations working correctly",
-        "PDF generation system producing professional reports in under 10 seconds",
-        "Live data integration with fallback mechanisms",
-        "Dashboard load time under 3 seconds",
-        "Intuitive user interface with responsive design",
-        "Comprehensive documentation including this report"
-    ]
-    
-    for item in success_list:
-        content.append(Paragraph(f"✓ {item}", ParagraphStyle(
-            'SuccessItem',
-            parent=styles['Normal'],
-            fontSize=11,
-            leftIndent=20,
-            spaceAfter=4,
-            textColor=colors.HexColor('#059669')
-        )))
-    
-    content.append(PageBreak())
-    
-    # 3. Project Scope
-    content.append(Paragraph("3. Project Scope & Deliverables", styles['Heading1']))
-    content.append(Spacer(1, 10))
-    
-    content.append(Paragraph("Key Deliverables:", styles['Heading2']))
-    
-    deliverables = [
-        ("Interactive Dashboard", "Live web application deployed on Streamlit Cloud"),
-        ("PDF Report System", "Professional document generation for portfolio and project reports"),
-        ("Data Integration", "Real-time data loading from Google Sheets with error handling"),
-        ("Career Pathway Visualization", "Gantt charts, progress tracking, skills matrix"),
-        ("Project Documentation", "Complete PM documentation including charter, plans, and reports"),
-        ("Source Code Repository", "Organized, documented codebase on version control")
-    ]
-    
-    for deliverable, description in deliverables:
-        content.append(Paragraph(f"<b>{deliverable}</b>", styles['Heading3']))
-        content.append(Paragraph(description, styles['Normal']))
-        content.append(Spacer(1, 5))
-    
-    content.append(PageBreak())
-    
-    # 4. Project Timeline - UPDATED TO 5 DAYS
-    content.append(Paragraph("4. Project Execution Timeline", styles['Heading1']))
-    content.append(Spacer(1, 10))
-    
-    timeline_content = """
-    The project was executed over a focused 5-day period from January 9-13, 2026. This rapid timeline was made possible 
-    through efficient planning, parallel workstreams, and agile development practices.
-    
-    Day 1 (January 9, 2026): Initiation Phase
-    • Requirements gathering and stakeholder analysis
-    • Technology stack selection and architecture design
-    • Initial project charter development
-    
-    Day 2 (January 10, 2026): Planning Phase
-    • Detailed architecture design and data modeling
-    • UI/UX wireframing and design concepts
-    • Risk assessment and mitigation planning
-    
-    Days 3-4 (January 11-12, 2026): Development Phase
-    • Core functionality implementation
-    • Data visualization development
-    • Error handling and fallback systems
-    
-    Day 5 (January 13, 2026): Testing & Deployment Phase
-    • Comprehensive testing (unit, integration, user acceptance)
-    • Performance optimization and debugging
-    • Streamlit Cloud deployment
-    • Final documentation and report generation
-    """
-    content.append(Paragraph(timeline_content, styles['Normal']))
-    
-    content.append(Spacer(1, 15))
-    content.append(Paragraph("Timeline Performance:", styles['Heading2']))
-    content.append(Paragraph("All phases completed on schedule. The 5-day timeline was achieved through efficient time management and rapid iterative development.", 
-                            ParagraphStyle(
-                                'TimelinePerf',
-                                parent=styles['Normal'],
-                                fontSize=11,
-                                textColor=colors.HexColor('#059669'),
-                                backColor=colors.HexColor('#d1fae5'),
-                                borderPadding=10,
-                                spaceAfter=10
-                            )))
-    
-    content.append(PageBreak())
-    
-    # 5. Risk Management
-    content.append(Paragraph("5. Risk Management Analysis", styles['Heading1']))
-    content.append(Spacer(1, 10))
-    
-    risk_content = """
-    A comprehensive risk management approach was applied throughout the project lifecycle. Key risks were identified 
-    during the planning phase and mitigation strategies were implemented proactively.
-    
-    The most significant risk involved PDF generation reliability, which was mitigated through extensive error handling 
-    and fallback mechanisms. Data source reliability was another key risk area, addressed through caching and 
-    sample data fallbacks.
-    
-    Regular risk review sessions were conducted, and the risk register was updated throughout the project. All 
-    identified risks were successfully mitigated, with no major issues impacting project delivery.
-    """
-    content.append(Paragraph(risk_content, styles['Normal']))
-    
-    content.append(PageBreak())
-    
-    # 6. Technical Implementation
-    content.append(Paragraph("6. Technical Implementation", styles['Heading1']))
-    content.append(Spacer(1, 10))
-    
-    tech_content = """
-    The project utilized a modern technology stack selected for its suitability to the project requirements:
-    
-    • Streamlit: Provided rapid web application development with Python
-    • Plotly: Enabled interactive, professional-grade data visualizations
-    • Pandas: Facilitated efficient data processing and manipulation
-    • ReportLab: Allowed for sophisticated PDF document generation
-    • Google Sheets API: Provided cloud-based data storage with easy maintenance
-    
-    The architecture followed separation of concerns principles, with distinct modules for data processing, 
-    visualization, PDF generation, and user interface. This modular approach facilitated testing and maintenance.
-    
-    Performance optimizations included caching decorators for data loading functions and efficient data structures 
-    for processing. The application demonstrates responsive design principles and works across different screen sizes.
-    """
-    content.append(Paragraph(tech_content, styles['Normal']))
-    
-    content.append(PageBreak())
-    
-    # 7. Project Outcomes
-    content.append(Paragraph("7. Project Outcomes & Success Metrics", styles['Heading1']))
-    content.append(Spacer(1, 10))
-    
-    outcomes = [
-        ("Dashboard Performance", "Load time: <2 seconds (Target: <3 seconds)", "✓ Exceeded"),
-        ("PDF Generation", "Processing time: <8 seconds (Target: <10 seconds)", "✓ Exceeded"),
-        ("Error Rate", "<0.5% (Target: <1%)", "✓ Exceeded"),
-        ("Code Quality", "PEP8 compliant, fully documented", "✓ Achieved"),
-        ("User Experience", "Intuitive interface, responsive design", "✓ Achieved"),
-        ("Documentation", "Comprehensive PM documentation created", "✓ Achieved")
-    ]
-    
-    for metric, result, status in outcomes:
-        content.append(Paragraph(f"<b>{metric}</b>", styles['Heading2']))
-        content.append(Paragraph(result, styles['Normal']))
-        content.append(Paragraph(status, ParagraphStyle(
-            'Status',
-            parent=styles['Normal'],
-            fontSize=11,
-            textColor=colors.HexColor('#059669'),
-            spaceAfter=8
-        )))
-    
-    content.append(Spacer(1, 15))
-    content.append(Paragraph("Overall Project Success: 100% of success criteria met", 
-                            ParagraphStyle(
-                                'OverallSuccess',
-                                parent=styles['Heading2'],
-                                fontSize=14,
-                                textColor=colors.HexColor('#059669'),
-                                alignment=TA_CENTER,
-                                backColor=colors.HexColor('#d1fae5'),
-                                borderPadding=10
-                            )))
-    
-    content.append(PageBreak())
-    
-    # 8. Career Pathway Integration
-    content.append(Paragraph("8. Career Pathway Integration", styles['Heading1']))
-    content.append(Spacer(1, 10))
-    
-    pathway_content = """
-    This project serves as a bridge between operational experience and formal project management qualifications. 
-    It demonstrates practical application of PMI knowledge areas:
-    
-    • Integration Management: Coordinating all project components into a cohesive whole
-    • Scope Management: Defining and controlling project boundaries
-    • Schedule Management: 5-day timeline with milestone tracking
-    • Cost Management: Zero-budget project utilizing open-source technologies
-    • Quality Management: Testing, validation, and user experience focus
-    • Risk Management: Proactive identification and mitigation of potential issues
-    
-    The dashboard itself visualizes career progression, while the project execution demonstrates PM competencies. 
-    This dual-purpose approach provides tangible evidence of both technical skills and project management capabilities.
-    """
-    content.append(Paragraph(pathway_content, styles['Normal']))
-    
-    content.append(PageBreak())
-    
-    # 9. Lessons Learned
-    content.append(Paragraph("9. Lessons Learned", styles['Heading1']))
-    content.append(Spacer(1, 10))
-    
-    lessons = [
-        ("Agile Flexibility", "Iterative development allowed for continuous improvement and adaptation to challenges"),
-        ("Documentation Value", "Comprehensive documentation proved invaluable for troubleshooting and knowledge transfer"),
-        ("Risk Proactivity", "Early risk identification and mitigation prevented major issues during execution"),
-        ("User-Centric Design", "Regular usability testing led to significant interface improvements"),
-        ("Modular Architecture", "Separated concerns facilitated testing and maintenance"),
-        ("Stakeholder Consideration", "Considering multiple user personas improved the final product's utility")
-    ]
-    
-    for lesson, detail in lessons:
-        content.append(Paragraph(f"<b>{lesson}</b>", styles['Heading2']))
-        content.append(Paragraph(detail, styles['Normal']))
-        content.append(Spacer(1, 8))
-    
-    content.append(PageBreak())
-    
-    # 10. Recommendations & Next Steps
-    content.append(Paragraph("10. Recommendations & Next Steps", styles['Heading1']))
-    content.append(Spacer(1, 10))
-    
-    recommendations = [
-        "Phase 2 Development: Implement user authentication for personalized dashboards",
-        "Enhanced Analytics: Add data tracking for progress monitoring over time",
-        "Mobile Application: Develop companion mobile app using React Native",
-        "Integration Expansion: Connect with LinkedIn API for automatic profile updates",
-        "Community Features: Add networking capabilities for career transition community",
-        "Commercial Potential: Explore options for offering the platform to educational institutions"
-    ]
-    
-    for i, rec in enumerate(recommendations, 1):
-        content.append(Paragraph(f"{i}. {rec}", ParagraphStyle(
-            'Recommendation',
-            parent=styles['Normal'],
-            fontSize=11,
-            leftIndent=20,
-            spaceAfter=6
-        )))
-    
-    content.append(Spacer(1, 20))
-    
-    # Conclusion
-    content.append(Paragraph("Conclusion", styles['Heading1']))
-    content.append(Spacer(1, 10))
-    
-    conclusion = """
-    The Interactive Project Management Career Portfolio Dashboard project has been successfully completed, 
-    meeting all objectives and success criteria within a 5-day development sprint (January 9-13, 2026). This rapid execution 
-    demonstrates comprehensive project management capabilities while creating a valuable tool for career development.
-    
-    Completing this project in just 5 days showcases effective time management, prioritization, and agile 
-    development practices. The dashboard serves as both a portfolio piece showcasing technical skills and 
-    a practical demonstration of project management competencies under tight timelines.
-    
-    This project exemplifies the transition from operations management to professional project management, 
-    providing tangible evidence of both the journey and the destination, while demonstrating the ability 
-    to deliver quality results efficiently.
-    """
-    content.append(Paragraph(conclusion, styles['Normal']))
-    
-    # Footer
-    content.append(Spacer(1, 30))
-    
-    footer_text = f"""
-    <b>PM Portfolio Dashboard - Professional Project Report</b><br/>
-    Project Manager: Evron Hadai | Report Version: 1.0<br/>
-    Generated: January 13, 2026<br/>
-    <i>This report documents the successful execution of a professional project management initiative.</i>
-    """
-    
-    content.append(Paragraph(footer_text, ParagraphStyle(
-        'ReportFooter',
-        parent=styles['Normal'],
-        fontSize=9,
-        textColor=colors.HexColor('#4b5563'),
-        alignment=TA_CENTER,
-        spaceBefore=20
-    )))
-    
     # Build PDF
     doc.build(content)
     buffer.seek(0)
     return buffer
 
 def get_project_report_pdf_download_link():
-    """Generate a download link for the professional project report - UPDATED FOR MOBILE"""
+    """Generate a download link for the professional project report - FIXED FOR MOBILE"""
     try:
         pdf_buffer = create_professional_project_report()
         b64 = base64.b64encode(pdf_buffer.read()).decode()
-        current_date = "20260113"
+        current_date = "20260115"
         
-        # UNIVERSAL DOWNLOAD THAT WORKS ON ALL DEVICES
+        # SIMPLIFIED DOWNLOAD LINK THAT WORKS ON ALL DEVICES
         href = f'''
-        <div style="margin: 15px 0; text-align: center;">
+        <div style="margin: 10px 0; text-align: center;">
             <a href="data:application/pdf;base64,{b64}" 
                download="PM_Portfolio_Project_Report_{current_date}.pdf"
-               target="_blank"
-               style="text-decoration: none; display: inline-block;">
+               style="text-decoration: none; display: block;">
                 <div style="background: linear-gradient(135deg, #059669 0%, #10b981 100%); 
-                            color: white; padding: 15px 30px; border-radius: 10px; 
-                            font-weight: 600; font-size: 16px;
+                            color: white; padding: 12px 20px; border-radius: 8px; 
+                            font-weight: 600; font-size: 14px;
                             border: 2px solid rgba(255, 255, 255, 0.3);
                             box-shadow: 0 4px 15px rgba(5, 150, 105, 0.3);
-                            transition: all 0.3s ease;">
-                    📄 Download Professional Project Report
+                            margin: 0 auto; max-width: 250px;">
+                    📄 Download Project Report
                 </div>
             </a>
-            <p style="color: #10b981; font-size: 14px; margin-top: 10px; font-weight: 600;">
-                📱 Mobile: Tap → Open in new tab → Download from there
-            </p>
         </div>
         '''
         return href
     except Exception as e:
-        st.error(f"Error generating project report: {str(e)}")
-        return "<div style='color: #ef4444; padding: 10px;'>Error generating project report. Please try again.</div>"
+        return f'<div style="color: #ef4444; padding: 10px;">Project Report: {str(e)}</div>'
 
 # Load data
 with st.spinner("Loading data..."):
@@ -1572,18 +567,26 @@ st.markdown("""
     border-radius: 5px;
 }
 
-/* Download button hover effects */
-a[download] div {
-    transition: all 0.3s ease !important;
+/* Download button styles */
+.download-button {
+    background: linear-gradient(135deg, #0a66c2 0%, #1da1f2 100%);
+    color: white;
+    padding: 12px 20px;
+    border-radius: 8px;
+    font-weight: 600;
+    font-size: 14px;
+    border: 2px solid rgba(255, 255, 255, 0.3);
+    text-decoration: none;
+    display: block;
+    text-align: center;
+    transition: all 0.3s ease;
+    margin: 0 auto;
+    max-width: 250px;
 }
 
-a[download] div:hover {
-    transform: translateY(-2px) !important;
-    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3) !important;
-}
-
-.stButton > button {
-    width: 100%;
+.download-button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
 }
 
 /* Mobile optimizations */
@@ -1600,9 +603,9 @@ a[download] div:hover {
         margin-bottom: 15px;
     }
     
-    a[download] div {
-        padding: 12px 20px !important;
-        font-size: 14px !important;
+    .download-button {
+        padding: 10px 15px;
+        font-size: 13px;
     }
     
     /* Stack columns on mobile */
@@ -1610,6 +613,12 @@ a[download] div:hover {
         width: 100% !important;
         padding: 5px !important;
     }
+}
+
+/* Ensure PDF links are clickable on mobile */
+a[href*="data:application/pdf"] {
+    cursor: pointer !important;
+    -webkit-tap-highlight-color: transparent !important;
 }
 
 /* Mobile download instructions */
@@ -1620,19 +629,10 @@ a[download] div:hover {
     padding: 15px;
     margin: 15px 0;
     text-align: center;
-    animation: pulse 2s infinite;
 }
 
-@keyframes pulse {
-    0% { opacity: 0.9; }
-    50% { opacity: 1; }
-    100% { opacity: 0.9; }
-}
-
-/* Ensure PDF links are clickable on mobile */
-a[href*="data:application/pdf"] {
-    cursor: pointer !important;
-    -webkit-tap-highlight-color: rgba(0,0,0,0.1) !important;
+.mobile-download-note strong {
+    color: #3b82f6;
 }
 </style>
 """, unsafe_allow_html=True)
@@ -1650,25 +650,20 @@ st.markdown("""
 <div class="mobile-download-note">
     <div style="text-align: center; color: #94a3b8;">
         <div style="font-size: 1.5rem; margin-bottom: 10px;">📱</div>
-        <strong>Mobile Download Guide:</strong> Tap any download button → PDF opens in new tab → Use browser's download option
+        <strong>Mobile Download Guide:</strong> Tap any download button → PDF will download automatically
     </div>
 </div>
 """, unsafe_allow_html=True)
 
-# Download buttons - UPDATED FOR MOBILE COMPATIBILITY
+# Download buttons - ALL SAME SIZE FOR MOBILE COMPATIBILITY
 col1, col2, col3, col4 = st.columns(4)
 
 with col1:
     st.markdown("""
     <div style="margin: 10px 0; text-align: center;">
         <a href="http://www.linkedin.com/in/evron-hadai" target="_blank" 
-           style="text-decoration: none; display: inline-block;">
-            <div style="background: linear-gradient(135deg, #0a66c2 0%, #1da1f2 100%); 
-                        color: white; padding: 12px 24px; border-radius: 8px; 
-                        font-weight: 600; font-size: 14px;
-                        border: 2px solid rgba(255, 255, 255, 0.2);">
-                🔗 LinkedIn Profile
-            </div>
+           class="download-button">
+            🔗 LinkedIn Profile
         </a>
     </div>
     """, unsafe_allow_html=True)
@@ -1932,11 +927,11 @@ with col3:
     </div>
     """, unsafe_allow_html=True)
 
-# Rapid Project Execution Section - UPDATED TO 5 DAYS
+# Rapid Project Execution Section - UPDATED TO JANUARY 10TH-15TH
 st.markdown("""
 <div class="heading-background-green">
     <h2>⚡ Rapid Project Execution</h2>
-    <p style="color: rgba(255, 255, 255, 0.9); margin-bottom: 0;">This entire project was completed in a focused 5-day development sprint (Jan 9-13, 2026)</p>
+    <p style="color: rgba(255, 255, 255, 0.9); margin-bottom: 0;">This entire project was completed in a focused 5-day development sprint (January 10-15, 2026)</p>
 </div>
 """, unsafe_allow_html=True)
 
@@ -1947,7 +942,7 @@ with col1:
     <div class="glass-card">
         <div style="text-align: center;">
             <div style="font-size: 2rem; margin-bottom: 10px;">🚀</div>
-            <h4 style="margin-bottom: 10px; color: #3b82f6;">Jan 9</h4>
+            <h4 style="margin-bottom: 10px; color: #3b82f6;">Jan 10</h4>
             <div style="color: #94a3b8; font-size: 0.9rem;">
                 • Requirements & Planning<br>
                 • Architecture Design<br>
@@ -1963,7 +958,7 @@ with col2:
     <div class="glass-card">
         <div style="text-align: center;">
             <div style="font-size: 2rem; margin-bottom: 10px;">⚡</div>
-            <h4 style="margin-bottom: 10px; color: #10b981;">Jan 10</h4>
+            <h4 style="margin-bottom: 10px; color: #10b981;">Jan 11</h4>
             <div style="color: #94a3b8; font-size: 0.9rem;">
                 • Core Functionality<br>
                 • Data Visualizations<br>
@@ -1979,7 +974,7 @@ with col3:
     <div class="glass-card">
         <div style="text-align: center;">
             <div style="font-size: 2rem; margin-bottom: 10px;">🔧</div>
-            <h4 style="margin-bottom: 10px; color: #8b5cf6;">Jan 11</h4>
+            <h4 style="margin-bottom: 10px; color: #8b5cf6;">Jan 12</h4>
             <div style="color: #94a3b8; font-size: 0.9rem;">
                 • Testing & Debugging<br>
                 • Performance Optimization<br>
@@ -1995,7 +990,7 @@ with col4:
     <div class="glass-card">
         <div style="text-align: center;">
             <div style="font-size: 2rem; margin-bottom: 10px;">📊</div>
-            <h4 style="margin-bottom: 10px; color: #f59e0b;">Jan 12</h4>
+            <h4 style="margin-bottom: 10px; color: #f59e0b;">Jan 13</h4>
             <div style="color: #94a3b8; font-size: 0.9rem;">
                 • Final Development<br>
                 • Integration Testing<br>
@@ -2011,7 +1006,7 @@ with col5:
     <div class="glass-card">
         <div style="text-align: center;">
             <div style="font-size: 2rem; margin-bottom: 10px;">✅</div>
-            <h4 style="margin-bottom: 10px; color: #dc2626;">Jan 13</h4>
+            <h4 style="margin-bottom: 10px; color: #dc2626;">Jan 15</h4>
             <div style="color: #94a3b8; font-size: 0.9rem;">
                 • Final Testing<br>
                 • Deployment<br>
@@ -2057,7 +1052,7 @@ with st.expander("📋 **View Project Management Details**", expanded=False):
     **Project Title:** Interactive Project Management Career Portfolio Dashboard  
     **Project Manager:** Evron Hadai  
     **Project Sponsor:** Evron Hadai  
-    **Timeline:** 5-day rapid development sprint (January 9-13, 2026)  
+    **Timeline:** 5-day rapid development sprint (January 10-15, 2026)  
     **Methodology:** Agile with iterative development
     
     ### Project Objectives
@@ -2098,11 +1093,11 @@ with st.expander("📋 **View Project Management Details**", expanded=False):
     - Code quality: PEP8 compliant, documented ✓
     """)
 
-# Footer
+# Footer - UPDATED DATE
 st.markdown('<div class="custom-divider"></div>', unsafe_allow_html=True)
 st.markdown("""
 <div style="text-align: center; color: #94a3b8; font-size: 0.9rem; padding: 20px;">
     <p>© 2026 Evron Hadai - Project Management Portfolio Dashboard</p>
-    <p>Contact: linkedin.com/in/evron-hadai | Report Version: 1.0 | January 13, 2026</p>
+    <p>Contact: linkedin.com/in/evron-hadai | Report Version: 1.0 | January 15, 2026</p>
 </div>
 """, unsafe_allow_html=True)
