@@ -1462,6 +1462,7 @@ with st.expander("📋 **View Project Management Details**", expanded=False):
     - **Data Processing:** Pandas
     - **Data Storage:** Google Sheets API
     - **Deployment:** Streamlit Cloud
+    - **Code:** Deepseek AI
     
     ### Success Metrics
     - Dashboard performance: <3s load time ✓
