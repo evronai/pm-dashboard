@@ -9,6 +9,7 @@ from reportlab.lib.styles import getSampleStyleSheet, ParagraphStyle
 from reportlab.lib import colors
 from reportlab.lib.enums import TA_CENTER, TA_JUSTIFY
 import base64
+from datetime import datetime  # Added datetime import
 
 # Page config
 st.set_page_config(
@@ -339,6 +340,9 @@ def create_complete_portfolio_pdf():
     
     content = []
     
+    # Define current_date for this function
+    current_date = "January 15, 2026"
+    
     # Cover Page
     content.append(Spacer(1, 100))
     content.append(Paragraph("PROJECT MANAGEMENT PORTFOLIO", title_style))
@@ -360,7 +364,6 @@ def create_complete_portfolio_pdf():
         spaceAfter=40
     )))
     
-    current_date = "January 15, 2026"
     content.append(Paragraph(f"Report Generated: {current_date}", ParagraphStyle(
         'DateStyle',
         parent=styles['Normal'],
@@ -523,6 +526,9 @@ def create_complete_project_charter():
     
     content = []
     
+    # Define current_date for this function
+    current_date = "January 15, 2026"
+    
     # Cover Page
     content.append(Spacer(1, 80))
     content.append(Paragraph("PROJECT CHARTER", title_style))
@@ -665,6 +671,9 @@ def create_complete_project_report():
     # Build content
     content = []
     
+    # Define current_date for this function
+    current_date = "January 15, 2026"
+    
     # Cover Page
     content.append(Spacer(1, 100))
     content.append(Paragraph("PROFESSIONAL PROJECT REPORT", ParagraphStyle(
@@ -705,7 +714,6 @@ def create_complete_project_report():
         spaceAfter=30
     )))
     
-    current_date = "January 15, 2026"
     content.append(Paragraph(f"Report Date: {current_date}", ParagraphStyle(
         'ReportDate',
         parent=styles['Normal'],
@@ -1454,7 +1462,6 @@ with st.expander("📋 **View Project Management Details**", expanded=False):
     - **Data Processing:** Pandas
     - **Data Storage:** Google Sheets API
     - **Deployment:** Streamlit Cloud
-    - **Code:** Deepseek AI
     
     ### Success Metrics
     - Dashboard performance: <3s load time ✓
