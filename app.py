@@ -1174,7 +1174,7 @@ with col1:
             <div style="font-size: 0.9rem; color: #94a3b8; margin-bottom: 5px;">Current Stage</div>
             <div style="font-size: 1.2rem; font-weight: 600; color: #3b82f6; margin-bottom: 10px;">Google PM</div>
             <div class="progress-bar">
-                <div class="progress-fill" style="width: 50%; background: linear-gradient(90deg, #3b82f6 0%, #60a5fa 100%);"></div>
+                <div class="progress-fill" style="width: 75%; background: linear-gradient(90deg, #3b82f6 0%, #60a5fa 100%);"></div>
             </div>
         </div>
         <div style="font-size: 0.85rem; color: #64748b; margin-top: 10px;">50% Complete</div>
@@ -1188,7 +1188,7 @@ with col2:
             <div style="font-size: 0.9rem; color: #94a3b8; margin-bottom: 5px;">CAPM Progress</div>
             <div style="font-size: 1.2rem; font-weight: 600; color: #10b981; margin-bottom: 10px;">50%</div>
             <div class="progress-bar">
-                <div class="progress-fill" style="width: 50%; background: linear-gradient(90deg, #10b981 0%, #34d399 100%);"></div>
+                <div class="progress-fill" style="width: 55%; background: linear-gradient(90deg, #10b981 0%, #34d399 100%);"></div>
             </div>
         </div>
         <div style="font-size: 0.85rem; color: #64748b; margin-top: 10px;">Approved, exam pending</div>
