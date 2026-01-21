@@ -390,7 +390,7 @@ def create_complete_portfolio_pdf():
     
     achievements = [
         "16+ accumulated certifications across 7 domains",
-        "Google PM Certification: 50% complete (in progress)",
+        "Google PM Certification: 75% complete (in progress)",
         "CAPM Certification: Approved for 2026 exam",
         "85%+ experience alignment with PMI knowledge areas",
         "5-year strategic pathway from foundation to master's level"
@@ -1177,7 +1177,7 @@ with col1:
                 <div class="progress-fill" style="width: 75%; background: linear-gradient(90deg, #3b82f6 0%, #60a5fa 100%);"></div>
             </div>
         </div>
-        <div style="font-size: 0.85rem; color: #64748b; margin-top: 10px;">50% Complete</div>
+        <div style="font-size: 0.85rem; color: #64748b; margin-top: 10px;">75% Complete</div>
     </div>
     """, unsafe_allow_html=True)
 
