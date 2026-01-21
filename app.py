@@ -1212,7 +1212,7 @@ with col4:
     <div class="progress-card">
         <div>
             <div style="font-size: 0.9rem; color: #94a3b8; margin-bottom: 5px;">Pathway Progress</div>
-            <div style="font-size: 1.2rem; font-weight: 600; color: #f59e0b; margin-bottom: 10px;">12.5%</div>
+            <div style="font-size: 1.2rem; font-weight: 600; color: #f59e0b; margin-bottom: 10px;">18.75%</div>
             <div class="progress-bar">
                 <div class="progress-fill" style="width: 18.75%; background: linear-gradient(90deg, #f59e0b 0%, #fbbf24 100%);"></div>
             </div>
