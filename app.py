@@ -89,7 +89,7 @@ def get_pm_credentials_chart_data():
     return pd.DataFrame({
         "Credential": ["Google PM", "CAPM", "Agile", "Risk Mgmt", "Stakeholder", "Budget"],
         "Status": ["In Progress", "Approved", "Completed", "In Progress", "Completed", "Planned"],
-        "Progress": [50, 50, 75, 60, 75, 45],
+        "Progress": [75, 55, 75, 60, 75, 45],
         "Category": ["Certification", "Certification", "Skill", "Skill", "Skill", "Skill"]
     })
 
