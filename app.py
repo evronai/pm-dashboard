@@ -89,7 +89,7 @@ def get_pm_credentials_chart_data():
     return pd.DataFrame({
         "Credential": ["Google PM", "CAPM", "Agile", "Risk Mgmt", "Stakeholder", "Budget"],
         "Status": ["In Progress", "Approved", "Completed", "In Progress", "Completed", "Planned"],
-        "Progress": [75, 55, 75, 60, 75, 45],
+        "Progress": [95, 55, 75, 60, 75, 45],
         "Category": ["Certification", "Certification", "Skill", "Skill", "Skill", "Skill"]
     })
 
@@ -390,7 +390,7 @@ def create_complete_portfolio_pdf():
     
     achievements = [
         "16+ accumulated certifications across 7 domains",
-        "Google PM Certification: 75% complete (in progress)",
+        "Google PM Certification: 95% complete (in progress)",
         "CAPM Certification: Approved for 2026 exam",
         "85%+ experience alignment with PMI knowledge areas",
         "5-year strategic pathway from foundation to master's level"
@@ -1174,7 +1174,7 @@ with col1:
             <div style="font-size: 0.9rem; color: #94a3b8; margin-bottom: 5px;">Current Stage</div>
             <div style="font-size: 1.2rem; font-weight: 600; color: #3b82f6; margin-bottom: 10px;">Google PM</div>
             <div class="progress-bar">
-                <div class="progress-fill" style="width: 75%; background: linear-gradient(90deg, #3b82f6 0%, #60a5fa 100%);"></div>
+                <div class="progress-fill" style="width: 95%; background: linear-gradient(90deg, #3b82f6 0%, #60a5fa 100%);"></div>
             </div>
         </div>
         <div style="font-size: 0.85rem; color: #64748b; margin-top: 10px;">75% Complete</div>
